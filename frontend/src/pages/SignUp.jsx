@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import logo from "../images/logo.png";
-import authPageSide from "../images/authPageSide.png"
+// import logo from "../images/logo.png";
+import image from "../images/computer.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { api_base_url } from "../helper";
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
@@ -30,7 +31,7 @@ const SignUp = () => {
       })
     }).then((res)=>res.json()).then((data)=>{
       if(data.success === true){
-        alert("Account created successfully");
+        toast.success("Account created successfully");
         navigate("/login");
       }
       else{
@@ -43,7 +44,10 @@ const SignUp = () => {
     <>
       <div className="container w-screen min-h-screen flex items-center justify-between pl-[100px]">
         <div className="left w-[35%]">
-          <img className="w-[200px]" src={logo} alt="logo" />
+          {/* <img className="w-[200px]" src={logo} alt="logo" /> */}
+          <h1 class=" w-[200px] text-4xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-white-500 to-pink-500 drop-shadow-lg">
+            WebForge
+          </h1>
           <form onSubmit={submitForm} className="w-full mt-[60px]" action="">
             <div className="inputBox">
               <input required onChange={(e)=>{setUsername(e.target.value)}} value={username} type="text" placeholder="Username" />
@@ -70,7 +74,7 @@ const SignUp = () => {
         </div>
 
         <div className="right w-[60%]">
-          <img className="h-[100vh] w-[100%] object-cover" src={authPageSide} alt="rightSideImage" />
+          <img className="h-[100vh] w-[100%] object-cover" src={image} alt="rightSideImage" />
         </div>
       </div>
     </>

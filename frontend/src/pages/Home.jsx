@@ -4,6 +4,8 @@ import ListCard from '../components/ListCard';
 import GridCard from '../components/GridCard';
 import { api_base_url } from '../helper';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const Home = () => {
 
@@ -21,7 +23,7 @@ const Home = () => {
 
   const createProj = (e) => {
     if (projTitle === "") {
-      alert("Please Enter Project Title");
+      toast.info("Please Enter Project Title");
     } else {
       fetch(api_base_url + "/createProject", {
         mode: "cors",
@@ -37,10 +39,10 @@ const Home = () => {
         if (data.success) {
           setIsCreateModelShow(false);
           setProjTitle("");
-          alert("Project Created Successfully");
+          toast.success("Project Created Successfully");
           navigate(`/editior/${data.projectId}`);
         } else {
-          alert("Something Went Wrong");
+          toast.error("Something Went Wrong");
         }
       });
     }
@@ -100,7 +102,7 @@ const Home = () => {
     <>
       <Navbar isGridLayout={isGridLayout} setIsGridLayout={setIsGridLayout} />
       <div className='flex items-center justify-between px-[100px] my-[40px]'>
-        <h2 className='text-2xl'>Hi, {userData ? userData.username : ""} 👋</h2>
+        <h2 className='text-[2rem]'>Hi, {userData ? userData.username : ""} 👋</h2>
         <div className='flex items-center gap-1'>
           {/* Search Bar */}
           <div className="inputBox !w-[350px]">

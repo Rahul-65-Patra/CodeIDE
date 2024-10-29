@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import logo from "../images/logo.png";
+//import logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from "react-avatar";
 import { MdLightMode } from "react-icons/md";
 import { BsFillGridFill } from "react-icons/bs";
-import { api_base_url,toggleClass } from "../helper";
+import { api_base_url, toggleClass } from "../helper";
 
-const Navbar = ({isGridLayout,setIsGridLayout}) => {
-
+const Navbar = ({ isGridLayout, setIsGridLayout }) => {
   const navigate = useNavigate();
-  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("isDarkMode") === "true");
-  
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("isDarkMode") === "true"
+  );
+
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
 
@@ -24,39 +25,48 @@ const Navbar = ({isGridLayout,setIsGridLayout}) => {
       body: JSON.stringify({
         userId: localStorage.getItem("userId"),
       }),
-    }).then((res) => res.json()).then((data) => {
+    })
+      .then((res) => res.json())
+      .then((data) => {
         if (data.success) {
           setData(data.user);
-        } 
-        else {
+        } else {
           setError(data.message);
         }
-      })
+      });
   }, []);
 
-  const logout = ()=>{
+  const logout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
     localStorage.removeItem("isLoggedIn");
     window.location.reload();
-  }
+  };
 
   return (
     <>
       <div className="navbar flex  items-center justify-between px-[100px] h-[80px] bg-[#141414]">
         <div className="logo">
-          <img
+          {/* <img
             className="w-[150px] cursor-pointer"
             src={logo}
             alt="navbarLogo"
-          />
+          /> */}
+          <h1 class="text-4xl md:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-white-500 to-pink-500 drop-shadow-lg cursor-pointer">
+            WebForge
+          </h1>
         </div>
         <div className="flex items-center gap-2">
-          <Link>Home</Link>
+          {/* <Link>Home</Link>
           <Link>About</Link>
           <Link>Contact</Link>
-          <Link>Services</Link>
-          <button onClick={logout} className="btnBlue !bg-red-500 min-w-[120px] ml-2 hover:!bg-red-600">Logout</button>
+          <Link>Services</Link> */}
+          <button
+            onClick={logout}
+            className="btnBlue !bg-red-500 min-w-[120px] ml-2 hover:!bg-red-600"
+          >
+            Logout
+          </button>
           <Avatar
             onClick={() => {
               toggleClass(".dropDownNavbar", "hidden");
@@ -68,7 +78,7 @@ const Navbar = ({isGridLayout,setIsGridLayout}) => {
           />
         </div>
 
-        <div className="absolute hidden dropDownNavbar right-[60px] top-[80px] shadow-lg shadow-black/50 bg-[#1A1919] p-[10px] rounded-lg w-[150px] h-[150px] ">
+        <div className="absolute hidden dropDownNavbar right-[60px] top-[80px] shadow-lg shadow-black/50 bg-[#1A1919] p-[10px] rounded-lg w-[150px] h-[120px] ">
           <div className="py-[10px] border-b-[1px] border-b-[#fff]">
             <h3 className="text-[17px]" style={{ lineHeight: 1 }}>
               {data ? data.name : ""}
@@ -78,10 +88,11 @@ const Navbar = ({isGridLayout,setIsGridLayout}) => {
             className="flex items-center gap-3 mt-3 mb-2 cursor-pointer"
             style={{ fontStyle: "normal" }}
           >
-            <MdLightMode className="text-[20px]" />
-            <p>Light Mode</p>
+            {/* <MdLightMode className="text-[20px]" />
+            <p>Light Mode</p> */}
           </i>
-          <i onClick={()=>setIsGridLayout(!isGridLayout)}
+          <i
+            onClick={() => setIsGridLayout(!isGridLayout)}
             className="flex items-center gap-3 mt-3 mb-2 cursor-pointer"
             style={{ fontStyle: "normal" }}
           >

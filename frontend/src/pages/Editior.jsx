@@ -5,6 +5,7 @@ import { MdLightMode } from "react-icons/md";
 import { RiExpandDiagonalLine } from "react-icons/ri";
 import { api_base_url } from '../helper';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Editior = () => {
   const [tab, setTab] = useState("html");
@@ -70,7 +71,7 @@ const Editior = () => {
       })
       .catch(err => {
         console.error("Fetch error:", err);
-        alert("Failed to fetch project data. Please check your connection or try again later.");
+        toast.error("Failed to fetch project data. Please check your connection or try again later.");
       });
   }, [projectID]);
 
@@ -102,14 +103,14 @@ const Editior = () => {
         })
         .then(data => {
           if (data.success) {
-            alert("Project saved successfully");
+            toast.success("Project saved successfully");
           } else {
-            alert("Something went wrong");
+            toast.error("Something went wrong");
           }
         })
         .catch((err) => {
           console.error("Error saving project:", err);
-          alert("Failed to save project. Please try again.");
+          toast.error("Failed to save project. Please try again.");
         });
       }
     };
@@ -161,11 +162,13 @@ const Editior = () => {
           />
         </div>
 
-        <iframe
-          id="iframe"
-          className={`w-[${isExpanded ? "0%" : "50%"}] ${isExpanded ? "hidden" : ""} bg-[#fff] min-h-[82vh] text-black`}
-          title="Output Frame"
-        />
+        {!isExpanded && (
+          <iframe
+            id="iframe"
+            className="w-[50%] min-h-[82vh] bg-[#fff] text-black"
+            title="output"
+          />
+        )}
       </div>
     </>
   );
