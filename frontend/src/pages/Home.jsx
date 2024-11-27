@@ -109,7 +109,7 @@ const Home = () => {
             <input
               type="text"
               placeholder='Search Here... !'
-              value={searchQuery} // Bind search input to searchQuery state
+              value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on input change
             />
           </div>

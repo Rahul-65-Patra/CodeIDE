@@ -33,19 +33,19 @@ const Editior = () => {
   const [jsCode, setJsCode] = useState("// JavaScript code here");
 
   const run = () => {
-    const html = htmlCode; // Make sure htmlCode is defined
+    const html = htmlCode; 
     const css = `<style>${cssCode}</style>`;
     const js = `<script>${jsCode}</script>`;
     const iframe = document.getElementById("iframe");
-    iframe.srcdoc = html + css + js; // Combine and set iframe content
+    iframe.srcdoc = html + css + js; 
   };
 
   useEffect(() => {
-    run(); // Run immediately on mount
-  }, [htmlCode, cssCode, jsCode]); // Re-run on code change
+    run(); 
+  }, [htmlCode, cssCode, jsCode]);
 
   useEffect(() => {
-    // Fetch project data
+
     fetch(api_base_url + "/getProject", {
       mode: "cors",
       method: "POST",
@@ -54,7 +54,7 @@ const Editior = () => {
       },
       body: JSON.stringify({
         userId: localStorage.getItem("userId"),
-        projId: projectID // Use projectID here
+        projId: projectID
       })
     })
       .then(res => {
@@ -64,7 +64,7 @@ const Editior = () => {
         return res.json();
       })
       .then(data => {
-        // Assuming data.project is correctly structured
+ 
         setHtmlCode(data.project.htmlCode);
         setCssCode(data.project.cssCode);
         setJsCode(data.project.jsCode);
@@ -78,9 +78,8 @@ const Editior = () => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === 's') {
-        event.preventDefault(); // Prevent the default save file dialog
+        event.preventDefault(); 
 
-        // Ensure that projectID and code states are updated and passed to the fetch request
         fetch(api_base_url + "/updateProject", {
           mode: "cors",
           method: "POST",
@@ -89,10 +88,10 @@ const Editior = () => {
           },
           body: JSON.stringify({
             userId: localStorage.getItem("userId"),
-            projId: projectID,  // Make sure projectID is correct
-            htmlCode: htmlCode,  // Passing the current HTML code
-            cssCode: cssCode,    // Passing the current CSS code
-            jsCode: jsCode       // Passing the current JS code
+            projId: projectID,  
+            htmlCode: htmlCode,  
+            cssCode: cssCode,    
+            jsCode: jsCode      
           })
         })
         .then(res => {
